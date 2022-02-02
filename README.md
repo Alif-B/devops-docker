@@ -1,2 +1,1 @@
-# devops-docker
-Learning and documenting docker containers
+# Learning and Documenting Docker
