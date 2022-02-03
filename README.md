@@ -5,7 +5,7 @@
 docker run -it <image_name>:<tag> <command>
 Create a container with the latest version of Ubuntu image
 
-Whenever you start a docker, it does something and kills itself
+Whenever you start a docker, it only run until in finishes the given command and then kills itself
 so you can run it with -d command to run it in detached mode
 This will keep the container running in the background even though it is not doing anything
 
@@ -17,6 +17,7 @@ use /<protocol> after the port to use a specific protocol
 use --net to put the container in a specific network
 use -e to set environment variables for the container
 use --link to link 2 container
+use -v to attach a volume to the container
 
 
 docker start <container_name>
@@ -59,3 +60,20 @@ Docker Linking
 This is a legacy version of network.
 This only works one way (all the ports of A is mapped to all ports of B, but not the other way around)
 It's best to avoid linking, but there are still some special use cases for it
+
+docker commit <container_id> <new_image_name>:<tag>
+This will create a snapshot of the container and create an image with it
+docker tag <image_name> <tag>
+This will tag the image
+
+docker search <something>
+To look up images from the terminal
+
+docker pull / docker push
+This downloads and uploads images to dockerhub registry
+DO NOT push images with secrets in them to any registry
+
+docker volume create <volume_name>
+Persistant Volume - Data that stays even after the deletion of the container
+Ephimeral Volume - Data that gets wiped when no container is using it
+If the file you're sharing does not exist, docker shares it as a directory
