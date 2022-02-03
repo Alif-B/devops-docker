@@ -10,7 +10,13 @@ so you can run it with -d command to run it in detached mode
 This will keep the container running in the background even though it is not doing anything
 
 use --rm option to automatically delete the container once the process is finished
-use --name to give your conatiner a non-rng name
+use --name to give your conatiner a non-rng name. Docker network can use this as DNS
+use --memory, --cpu-shares, --cpu-quota to control resource sharing between containers
+use -p <host_port>:<container_port> option to expose port to outside of the container
+use /<protocol> after the port to use a specific protocol
+use --net to put the container in a specific network
+use -e to set environment variables for the container
+use --link to link 2 container
 
 
 docker start <container_name>
@@ -28,3 +34,28 @@ This will add add the command as a process to an already running container
 docker logs <container_name>
 This will show all the logs for the container, the logs are removed with the container
 
+docker kill <container_name>
+Stop the container but still keeps it around
+
+docker rm <container_name>
+Removes the container from Docker
+
+docker port <container_name>
+to find the exposed port of a container
+
+docker network ls
+shows all the networks available
+Bridge Network - It's the default network provided by kubernetes. Use bridge whenever possible.
+Host Network - It's the same network as your computer. (Bridge is isolated from your host network)
+
+docker network create <network_name>
+This creates a network of said name
+
+docker network <network_name> <container_name>
+This adds the container to the network
+One container can have multiple networks
+
+Docker Linking
+This is a legacy version of network.
+This only works one way (all the ports of A is mapped to all ports of B, but not the other way around)
+It's best to avoid linking, but there are still some special use cases for it
