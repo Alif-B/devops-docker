@@ -132,6 +132,7 @@ Quorum
 Basically a consensus mechanism among multiple master nodes.
 (N/2)+1 of the master nodes must be available at all time for you to manage the cluster
 
+## Docker Storage
 Replicated VS Global Services
 Replicated - Identical services are distributed Throughout all node (IE nodes have 3 webservers and 5 db servers etc)
 Global - Only one service per node (IE each node has only one DataDog Agent service)
@@ -151,3 +152,12 @@ Volumes (Docker Managed) > Bind Mount (Host Managed) > tmpfs (On RAM)
 
 Volume Drivers / Plugins
 Docker has many plugins for you to read and write data to and from different storage providers like Azure, GCP, AWS, VMWare etc
+  
+## Docker Networking
+# Network Drivers
+* Bridge Network - Default Driver. It bridges the host and the container with port mapping
+* Host Network - It's directly on the host's network. AKA container and the host can't use the same ports
+* Overlay Network - Only available for EE and Swarm. It connects multiple hosts and their containers together
+* Macvlan Network - Containers get a MAC address therefore, they appear to be physical hosts to the network
+* None - When you want the container to be completely isolated from any networking
+* Third party drivers - As it sounds you can get custom network plugins 
