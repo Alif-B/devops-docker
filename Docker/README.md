@@ -1,4 +1,13 @@
-# Learning and Documenting Docker
+# Docker Certified Associate Exam (DCA)
+
+# Installing Docker
+
+* Docker has 2 versions - Community Edition (CE), Enterprise Edition (EE)
+* If you can run your application from a local or on premesis, CE is good enough
+* To run docker in the cloud, you will definitely need the EE
+* EE has Docker Control Plane (DCP) and Docker Trusted Registry (DTR)
+* Sizing - 8GB RAM minimum for master and 4GB RAM min for worker nodes
+
 
 ## Using Docker
 
@@ -105,3 +114,40 @@ For Example, you may need ubuntu to compile your api. This case in the dockerfil
 use an Ubuntu to image to compile the api. And since everyhting in the computer in binary anyway,
 we take the binary of the API and inject it onto a smaller image like alpine and run it off of there.
 Freeing up a lot of space in the process
+
+Docker swarm
+Alternative to kubernetes
+
+Docker Swarm Locking
+You can kind of put a pass code on your swarm. You will need that code to turn it on or restart it
+You can autolock, change the passcode 
+
+Service vs Container vs Task vs Stack
+Container - Is one instance of the image
+Service - Is a set of containers that run an application (IE node1, node2)
+Stack - Is a set of services that make up the application (IE webserver, DB server etc)
+Task - Is Container + Set of commands to run in the container
+
+Quorum
+Basically a consensus mechanism among multiple master nodes.
+(N/2)+1 of the master nodes must be available at all time for you to manage the cluster
+
+Replicated VS Global Services
+Replicated - Identical services are distributed Throughout all node (IE nodes have 3 webservers and 5 db servers etc)
+Global - Only one service per node (IE each node has only one DataDog Agent service)
+
+Block Storage VS Object Storage
+Block Storage - Writes a chunk of data on some area of the storage, therefore has no metadata. Hence best for high IOPS
+Object Storage - Writes with meta data and a unique identifier, therefore it's more scaleable. But there is no hierarchy
+
+Storage Driver
+It's basically the program that controls writeable layers of containers
+Based on your OS Docker recomends drivers that you should be using
+Once you change the driver, any container or images that you created using the previous driver will be lost
+For that, you can save and push all the container and reload them once the driver has been changed
+
+Storing Persistant Data
+Volumes (Docker Managed) > Bind Mount (Host Managed) > tmpfs (On RAM)
+
+Volume Drivers / Plugins
+Docker has many plugins for you to read and write data to and from different storage providers like Azure, GCP, AWS, VMWare etc
