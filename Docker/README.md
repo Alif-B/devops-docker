@@ -98,16 +98,16 @@ this will build an image out of the file called `Dockerfile` in the current dire
 
 The process is `Choose existing image` > `Make a container` > `Run stuff in it` > `Make it an image`
 
-##### Dockerfile is IDEMPOTENT
+### Dockerfile is IDEMPOTENT
 This means that it won't rerun the steps that has already been run on reapplies   
 TIP: Put the part of the dockerfile that you change the most at the end of the file   
 
-##### Docker file is not shell script
+### Docker file is not shell script
 Each line will run it's own container to run the command   
 So put all the things you want done together, in one line   
 However, environment variables will persist if you use ENV command to set them   
 
-##### Multistage Build
+### Multistage Build
 This is where you complie your application (IE an API), and take the binary   
 and start a smaller image with that binary in it.   
 
