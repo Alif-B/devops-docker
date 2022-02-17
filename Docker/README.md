@@ -11,7 +11,7 @@
 
 ## Using Docker
 
-```docker run -it <image_name>:<tag> <command>```
+```docker run -it <image_name>:<tag> <command>```  
 Create a container with the latest version of Ubuntu image
 
 Whenever you start a docker, it only run until in finishes the given command and then kills itself 
@@ -29,39 +29,39 @@ This will keep the container running in the background even though it is not doi
 * use -v to attach a volume to the container
 
 
-```docker start <container_name>```
+```docker start <container_name>```  
 this starts an already created container in detached mode
 
 
-```docker attach <container_name>```
+```docker attach <container_name>```  
 to join the terminal of that container  
 after attaching if you quit then the container will stop  
 If you want it to keep running detached, the do `ctrl+p crtl+q` instead of exiting  
 
-```docker exec <container_name> <command>```
+```docker exec <container_name> <command>```  
 This will add add the command as a process to an already running container
 
-```docker logs <container_name>```
+```docker logs <container_name>```  
 This will show all the logs for the container, the logs are removed with the container
 
-```docker kill <container_name>``````
+```docker kill <container_name>```  
 Stop the container but still keeps it around
 
-```docker rm <container_name>```
+```docker rm <container_name>```  
 Removes the container from Docker
 
-```docker port <container_name>```
+```docker port <container_name>```  
 to find the exposed port of a container
   
-```docker network ls```
+```docker network ls```  
 shows all the networks available  
 Bridge Network - It's the default network provided by kubernetes. Use bridge whenever possible.  
 Host Network - It's the same network as your computer. (Bridge is isolated from your host network)  
 
-```docker network create <network_name>```
+```docker network create <network_name>```  
 This creates a network of said name
 
-```docker network <network_name> <container_name>``````
+```docker network <network_name> <container_name>```  
 This adds the container to the network  
 One container can have multiple networks  
 
@@ -70,20 +70,20 @@ This is a legacy version of network.
 This only works one way (all the ports of A is mapped to all ports of B, but not the other way around)  
 It's best to avoid linking, but there are still some special use cases for it  
 
-```docker commit <container_id> <new_image_name>:<tag>```
+```docker commit <container_id> <new_image_name>:<tag>```  
 This will create a snapshot of the container and create an image with it
 
-```docker tag <image_name> <tag>```
+```docker tag <image_name> <tag>```  
 This will tag the image
 
-```docker search <something>```
+```docker search <something>```  
 To look up images from the terminal
 
-```docker pull / docker push```
+```docker pull / docker push```  
 This downloads and uploads images to dockerhub registry  
 DO NOT push images with secrets in them to any registry  
 
-```docker volume create <volume_name>```
+```docker volume create <volume_name>```  
 Persistant Volume - Data that stays even after the deletion of the container  
 Ephimeral Volume - Data that gets wiped when no container is using it  
 If the file you're sharing does not exist, docker shares it as a directory.  
@@ -93,7 +93,7 @@ If the file you're sharing does not exist, docker shares it as a directory.
 
 Dockerfiles are used to "program" images
 
-```docker build -t <tag> <directory_of_dockerfile>```
+```docker build -t <tag> <directory_of_dockerfile>```  
 this will build an image out of the file called `Dockerfile` in the current directory
 
 The process is `Choose existing image` > `Make a container` > `Run stuff in it` > `Make it an image`
@@ -144,7 +144,7 @@ Object Storage - Writes with meta data and a unique identifier, therefore it's m
 
 # Storage Driver
 It's basically the program that controls writeable layers of containers   
-Based on your OS Docker recomends drivers that you should be using   
+Based on your OS, Docker recomends drivers that you should be using   
 Once you change the driver, any container or images that you created using the previous driver will be lost   
 For that, you can save and push all the container and reload them once the driver has been changed   
 
