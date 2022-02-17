@@ -119,17 +119,17 @@ Freeing up a lot of space in the process
 # Docker swarm
 Alternative to kubernetes   
 
-## Docker Swarm Locking
+### Docker Swarm Locking
 You can kind of put a pass code on your swarm. You will need that code to turn it on or restart it   
 You can autolock, change the passcode    
 
-## Service vs Container vs Task vs Stack
+### Service vs Container vs Task vs Stack
 *    Container - Is one instance of the image
 *    Service - Is a set of containers that run an application (IE node1, node2)
 *    Stack - Is a set of services that make up the application (IE webserver, DB server etc)
 *    Task - Is Container + Set of commands to run in the container
 
-## Quorum
+### Quorum
 Basically a consensus mechanism among multiple master nodes.   
 (N/2)+1 of the master nodes must be available at all time for you to manage the cluster   
 
@@ -138,24 +138,24 @@ Replicated VS Global Services
 Replicated - Identical services are distributed Throughout all node (IE nodes have 3 webservers and 5 db servers etc)   
 Global - Only one service per node (IE each node has only one DataDog Agent service)   
 
-## Block Storage VS Object Storage
+### Block Storage VS Object Storage
 Block Storage - Writes a chunk of data on some area of the storage, therefore has no metadata. Hence best for high IOPS   
 Object Storage - Writes with meta data and a unique identifier, therefore it's more scaleable. But there is no hierarchy   
 
-## Storage Driver
+### Storage Driver
 It's basically the program that controls writeable layers of containers   
 Based on your OS, Docker recomends drivers that you should be using   
 Once you change the driver, any container or images that you created using the previous driver will be lost   
 For that, you can save and push all the container and reload them once the driver has been changed   
 
-## Storing Persistant Data
+### Storing Persistant Data
 Volumes (Docker Managed) > Bind Mount (Host Managed) > tmpfs (On RAM)
 
-## Volume Drivers / Plugins
+### Volume Drivers / Plugins
 Docker has many plugins for you to read and write data to and from different storage providers like Azure, GCP, AWS, VMWare etc
   
 # Docker Networking
-## Network Drivers
+### Network Drivers
 * Bridge Network - Default Driver. It bridges the host and the container with port mapping
 * Host Network - It's directly on the host's network. AKA container and the host can't use the same ports
 * Overlay Network - Only available for EE and Swarm. It connects multiple hosts and their containers together
@@ -166,12 +166,12 @@ Docker has many plugins for you to read and write data to and from different sto
   
 # Docker Security
 
-## Container Security
+### Container Security
 * Kernal Namespace - A container has it's own namespace at the kernal level, aka it's capabilities are isolated
 * Control Groups - Basically limitation on how much resources a container can have
 * Daemon Attack Surface - Is small, but a node should ONLY run docker and no other applications
 * Linux Kernal Capabilities - Even though containers run on the host as sudo, they have limited privileges on the host
   
-## Swarm Security
+### Swarm Security
 * MTLS - Mutually Authenticated TLS, every 3 months swarm automatically changes certificates without downtime
 * Manager nodes act as the certificate authority
