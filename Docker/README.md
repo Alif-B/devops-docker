@@ -65,7 +65,7 @@ This creates a network of said name
 This adds the container to the network  
 One container can have multiple networks  
 
-Docker Linking
+# Docker Linking
 This is a legacy version of network.  
 This only works one way (all the ports of A is mapped to all ports of B, but not the other way around)  
 It's best to avoid linking, but there are still some special use cases for it  
