@@ -127,11 +127,12 @@ You can autolock, change the passcode
 *    Container - Is one instance of the image
 *    Service - Is a set of containers that run an application (IE node1, node2)
 *    Stack - Is a set of services that make up the application (IE webserver, DB server etc)
+*    Swarm - a collection of nodes. You run all of your stacks in the swarm.
 *    Task - Is Container + Set of commands to run in the container
 
 ### Quorum
 Basically a consensus mechanism among multiple master nodes.   
-(N/2)+1 of the master nodes must be available at all time for you to manage the cluster   
+(N/2)+1 of the master nodes must be available at all time for you to manage the cluster
 
 # Docker Storage
 Replicated VS Global Services   
@@ -176,9 +177,32 @@ Docker has many plugins for you to read and write data to and from different sto
 * MTLS - Mutually Authenticated TLS, every 3 months swarm automatically changes certificates without downtime
 * Manager nodes act as the certificate authority
 
-# Whizlab Questions
+# Some fun facts
 * ```docker swarm join-token worker``` - if you lost the command to make worker nodes
 * Docker Compose is a yaml file (defines services) used for orchastration and Dockerfiles are used to create images
 * Docker compose can build images for the service if a dockerfile is specified, but can't create an image
 * If you run docker compose on a swam, it will ONLY run it on one worker node
-* 
+* Docker Compose V3 or higher is required to use compose with docker stack
+* During backups FROM MANAGER nodes. backing up only 1 node is enough, since all managers store the same data
+* Docker secrets is available only if you are running services
+* If you have both `ENTRYPOINT` and `CMD` in Dockerfile, they will get appended `[Entrypoint + CMD]` on execution
+* `.dockerignore` file can be used to ignore files in the directory
+* Can use `--no-cache` or `--no-cache=true` to disable caching while doing `dokcer build`
+* Default log driver is a json file
+* Docker uses `iptables rules + namespaces` to isolate the containers on linux
+* By default containers can communicate using the ip and NOT the host name
+* `--link` allows you to com with another container without exposing ports. Will soon be depricated
+* You need to be in the manager node to be able to create overlay networks
+* Defult IP pool used by docker for overlay network is `10.0.0.1/8`
+* You can use `seccomp = secure computing` and it's filters to restrict access to your applications
+* `SELinux` is a set of kernal mods that allow you have more control over system access
+* Any process run by Docker is run as `root` on the host, but you can use `--user` flag to change that
+* If lost the join-token, need to change it manually in both the managers and the workers ?????????????????
+* Docker secrets are immutable and they use `ramdisk` to attach as volume
+* `bind mounts` are read only so container does not mess up host files
+* `tempfs mount` avoids writing to the container's writeable layer (better container performance)(only availble in linux)
+* `loop-lvm` is for testing and `direct-lvm` is used for production environment
+
+# Some Docker Commands
+```docker service scale <service_name>=5``` - scale to 5 replicas  
+```sudo kill -SIGHUP $(<docker preocess id>)``` - reloads docker configs without killing the daemon  
