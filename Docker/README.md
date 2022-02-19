@@ -175,3 +175,10 @@ Docker has many plugins for you to read and write data to and from different sto
 ### Swarm Security
 * MTLS - Mutually Authenticated TLS, every 3 months swarm automatically changes certificates without downtime
 * Manager nodes act as the certificate authority
+
+# Whizlab Questions
+* ```docker swarm join-token worker``` - if you lost the command to make worker nodes
+* Docker Compose is a yaml file (defines services) used for orchastration and Dockerfiles are used to create images
+* Docker compose can build images for the service if a dockerfile is specified, but can't create an image
+* If you run docker compose on a swam, it will ONLY run it on one worker node
+* 
