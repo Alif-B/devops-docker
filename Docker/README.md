@@ -27,6 +27,8 @@ This will keep the container running in the background even though it is not doi
 * use -e to set environment variables for the container
 * use --link to link 2 container
 * use -v to attach a volume to the container
+* use -m to limit the max memory a container can use
+* use --privileged to enable kernal level capabilities
 
 
 ```docker start <container_name>```  
@@ -202,7 +204,27 @@ Docker has many plugins for you to read and write data to and from different sto
 * `bind mounts` are read only so container does not mess up host files
 * `tempfs mount` avoids writing to the container's writeable layer (better container performance)(only availble in linux)
 * `loop-lvm` is for testing and `direct-lvm` is used for production environment
+  * Secrets are not backed up when backing up UCP
+  * Back up policy order - `Swarm > UCP > DTR`
+  * To distribute managers accross mutiple nodes, you need to look at node failure situation and then quorum + fault taularence
+  * Users, Orgs and Teams are not backed up while backing up DTR
+  * Every node that will run DTR, requires UCP to be installed
+  * `ADD` in Docker file is the same as `COPY` except, it can copy from a url also copy a tar file and extract it on destination
+  * You can use S3 as a storage backend for DTR, CAN NOT use EBS Volumes for that
+  * You can only run Docker stack on the manager node
+  * Configs inside the container is stored at `/` and secrets are stored at `/run/secrets`
+  * Docker Swarm uses ports `TCP/2377 - Cluster Management Comm` and `TCP,UPD/7946 - Comm among nodes`
+  * Any work after the docker run command will replace the CMD in the dockerfile
+  * You need to create a custom network first, before allocating IPs to contianers
+  * Docker by default creates `docker_gwbridge- to provision overlay` & `ingress- to publish ports` networks when creating a swarm
+  * If you lose the root key in DCT, it is recommended to call Docker Support
+  * Client Bundle is a set of certs that can be downloaded from UCP, It allows remote docker clients to log in as an EE user
+  * 
 
 # Some Docker Commands
 ```docker service scale <service_name>=5``` - scale to 5 replicas  
 ```sudo kill -SIGHUP $(<docker preocess id>)``` - reloads docker configs without killing the daemon  
+  ```docker swarm unlock-key``` - Get the unlock key if you are logged in already
+  ```docker build <git_url>``` - You can just do that to run straight from github
+  ```docker swarm init --default-addr-pool 172.16.2.0/24``` - to specify address pool
+  ```docker run --net <nettwork> --ip <IP> ubuntu``` - Allocating static IP to a container
