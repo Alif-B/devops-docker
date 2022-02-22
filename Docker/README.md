@@ -174,6 +174,11 @@ It's best to avoid linking, but there are still some special use cases for it
 * One container can have multiple networks   
 * DO NOT push images with secrets in them to any registry   
 * If the file you're sharing in the Dockerfile does not exist, docker shares it as a new directory   
+  
+* ARG is the only instruction that can come before FROM in the Dockerfile. It's an argument can be provided with docker build
+* EXPOSE command in Docker file doesn't actually publish the port, it's just a doc. You need to maually use -p while starting  
+* Multiple WORKDIR gets appended and not replaced  
+* ONBUILD in dockerfile is an instruction that will get triggered when the imgae is used for multi stage builds  
 
 # Some Docker Commands
 ```docker swarm join-token worker``` - if you lost the command to make worker nodes   
@@ -184,10 +189,10 @@ It's best to avoid linking, but there are still some special use cases for it
 ```docker service scale <service>=5``` | ```docker service update --replicas=5 <service>``` - scale to 5 replicas   
 ```docker service ps <service>``` - Lists the tasks inside the service  
 ```docker service rollback <service>``` - To revert the updates made to a service  
-```docker service create --mount nginx``` - to add a volume to the service, does NOT support `-v`
+```docker service create --mount nginx``` - to add a volume to the service, does NOT support `-v`  
 ```docker stack services``` - to see the services in the stack   
 ```docker node update --lable-add / --lable-rm``` - to add or remove labels  
-```docker network create --driver <network_type> <name>``` - To create a network
+```docker network create --driver <network_type> <name>``` - To create a network  
 ```docker build <git_url>``` - You can just do that to run straight from github   
 ```docker swarm init --default-addr-pool 172.16.2.0/24``` - to specify address pool   
 ```docker run --net <nettwork> --ip <IP> ubuntu``` - Allocating static IP to a container   
