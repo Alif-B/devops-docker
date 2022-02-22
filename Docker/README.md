@@ -7,6 +7,7 @@
 * To run docker in the cloud, you will definitely need the EE
 * EE has Docker Control Plane (DCP) and Docker Trusted Registry (DTR)
 * Sizing - 8GB RAM minimum for master and 4GB RAM min for worker nodes
+* Best to troubleshoot UCP Clusters with client bundles
 
 
 # Using Docker
@@ -29,6 +30,7 @@ This will keep the container running in the background even though it is not doi
 * use -v to attach a volume to the container  
 * use -m to limit the max memory a container can use  
 * use --privileged to enable kernal level capabilities  
+* use --pretty to print it in an easily readable format
 
 
 # Building Docker Images
@@ -98,12 +100,16 @@ Volumes (Docker Managed) > Bind Mount (Host Managed) > tmpfs (On RAM)
 Docker has many plugins for you to read and write data to and from different storage providers like Azure, GCP, AWS, VMWare etc
   
 # Docker Networking
-### Network Drivers
+### Contianer Network Drivers
 * Bridge Network - Default Driver. It bridges the host and the container with port mapping  
 * Host Network - It's directly on the host's network. AKA container and the host can't use the same ports  
+* None - When you want the container to be completely isolated from any networking   
+### Service Network Drivers
 * Overlay Network - Only available for EE and Swarm. It connects multiple hosts and their containers together  
+* Ingress Network - A type of overlay network that load balances among the service nodes  
+* docker_gwbridge - It connects the swarms virtual networks to the docker daemon's physical network  
 * Macvlan Network - Containers get a MAC address therefore, they appear to be physical hosts to the network  
-* None - When you want the container to be completely isolated from any networking  
+
 * Third party drivers - As it sounds, you can get custom network plugins
  
 ### Docker Linking
@@ -171,8 +177,17 @@ It's best to avoid linking, but there are still some special use cases for it
 
 # Some Docker Commands
 ```docker swarm join-token worker``` - if you lost the command to make worker nodes   
-```docker service scale <service_name>=5``` - scale to 5 replicas   
+```docker swarm unlock``` - To unclock the swarm  
+```docker swarm update --auto-lock=true/false``` - To lock/ unlock the existing swarm  
 ```docker swarm unlock-key``` - Get the unlock key if you are logged in already   
+```docker swarm unlock-key --rotate``` - To rotate the keys  
+```docker service scale <service>=5``` | ```docker service update --replicas=5 <service>``` - scale to 5 replicas   
+```docker service ps <service>``` - Lists the tasks inside the service  
+```docker service rollback <service>``` - To revert the updates made to a service  
+```docker service create --mount nginx``` - to add a volume to the service, does NOT support `-v`
+```docker stack services``` - to see the services in the stack   
+```docker node update --lable-add / --lable-rm``` - to add or remove labels  
+```docker network create --driver <network_type> <name>``` - To create a network
 ```docker build <git_url>``` - You can just do that to run straight from github   
 ```docker swarm init --default-addr-pool 172.16.2.0/24``` - to specify address pool   
 ```docker run --net <nettwork> --ip <IP> ubuntu``` - Allocating static IP to a container   
