@@ -64,18 +64,19 @@ You can kind of put a pass code on your swarm. You will need that code to turn i
 You can autolock, change the passcode    
 
 ### Service vs Container vs Task vs Stack
+* Node - It's a physical or virtual host (IE ec2, VMs, PCs)
 * Container - Is one instance of the image  
 * Service - Is a set of containers that run an application (IE node1, node2)  
 * Stack - Is a set of services that make up the application (IE webserver, DB server etc)  
 * Swarm - a collection of nodes. You run all of your stacks in the swarm  
-* Task - Is Container + Set of commands to run in the container  
+* Task - Is Container + Set of commands. Services can run multiple tasks  
 
 ### Quorum
 Basically a consensus mechanism among multiple master nodes.   
 (N/2)+1 of the master nodes must be available at all time for you to manage the cluster
   
 ### Replicated VS Global Services
-Replicated - Identical services are distributed Throughout all node (IE nodes have 3 webservers and 5 db servers etc)   
+Replicated - Identical services are distributed throughout all node (IE nodes have 3 webservers and 5 db servers etc)   
 Global - Only one service per node (IE each node has only one DataDog Agent service)  
 
 # Docker Storage
@@ -168,7 +169,7 @@ It's best to avoid linking, but there are still some special use cases for it
 * Docker Swarm uses ports `TCP/2377 - Cluster Management Comm` and `TCP,UPD/7946 - Comm among nodes`   
 * Any work after the docker run command will replace the CMD in the dockerfile   
 * You need to create a custom network first, before allocating IPs to contianers   
-* Docker swarn by default creates `docker_gwbridge- to provision overlay` & `ingress- to publish ports` on init   
+* Docker swarm by default creates `docker_gwbridge- to provision overlay` & `ingress- to publish ports` on init   
 * If you lose the root key in DCT, it is recommended to call Docker Support   
 * Client Bundle is a set of certs that can be downloaded from UCP, It allows remote docker clients to log in as an EE user   
 * One container can have multiple networks   
